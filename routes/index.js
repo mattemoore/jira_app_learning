@@ -7,12 +7,12 @@ export default function routes(app, addon) {
 
     // This is an example route used by "generalPages" module (see atlassian-connect.json).
     // Verify that the incoming request is authenticated with Atlassian Connect.
-    app.get('/hello-world', addon.authenticate(), (req, res) => {
+    app.get('/hello-world/:projectId', addon.authenticate(), (req, res) => {
         // Rendering a template is easy; the render method takes two params:
         // name of template and a json object to pass the context in.
         res.render('hello-world', {
-            title: 'Atlassian Connect'
-            //issueId: req.query['issueId']
+            title: 'Atlassian Connect',
+            projectId: req.params['projectId']
         });
     });
 

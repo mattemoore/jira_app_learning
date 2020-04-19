@@ -20,7 +20,7 @@
                 "name": {
                     "value": "Hello World"
                 },
-                "url": "/hello-world",
+                "url": "/hello-world/{project.id}",
                 "conditions": [{
                     "condition": "user_is_logged_in"
                 }]
