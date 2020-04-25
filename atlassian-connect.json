@@ -10,7 +10,7 @@
         "installed": "/installed"
     },
     "scopes": [
-        "READ"
+        "READ", "WRITE", "ADMIN"
     ],
     "modules": {
         "generalPages": [
@@ -20,7 +20,18 @@
                 "name": {
                     "value": "Hello World"
                 },
-                "url": "/hello-world/{project.id}",
+                "url": "/hello-world/project/{project.id}",
+                "conditions": [{
+                    "condition": "user_is_logged_in"
+                }]
+            },
+            {
+                "key": "hello-world-init",
+                "location": "system.top.navigation.bar",
+                "name": {
+                    "value": "Initialize"
+                },
+                "url": "/hello-world/init/",
                 "conditions": [{
                     "condition": "user_is_logged_in"
                 }]

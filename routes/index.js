@@ -1,20 +1,27 @@
+const init = require('../src/init.js')
+
 export default function routes(app, addon) {
-    // Redirect root path to /atlassian-connect.json,
-    // which will be served by atlassian-connect-express.
     app.get('/', (req, res) => {
         res.redirect('/atlassian-connect.json');
     });
 
-    // This is an example route used by "generalPages" module (see atlassian-connect.json).
-    // Verify that the incoming request is authenticated with Atlassian Connect.
-    app.get('/hello-world/:projectId', addon.authenticate(), (req, res) => {
-        // Rendering a template is easy; the render method takes two params:
-        // name of template and a json object to pass the context in.
+    app.get('/hello-world/project/:projectId', addon.authenticate(), (req, res) => {
         res.render('hello-world', {
             title: 'Atlassian Connect',
             projectId: req.params['projectId']
         });
     });
 
-    // Add additional route handlers here...
+    app.get('/hello-world/init', addon.authenticate(), safeHandler(initHandler));
+
+    function safeHandler(handler) {
+        return function(req, res) {
+            handler(req, res).catch(error => res.status(500).send(error));
+        };
+    }
+
+    async function initHandler(req, res) {
+        const response = await init.addIssueType(addon.httpClient(req))
+        res.send(response);
+    }
 }
