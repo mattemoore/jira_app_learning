@@ -11,6 +11,7 @@ exports.addIssueType = async function(httpClient) {
             description: "auto description"
         }
     };
+
     try {
         const result = await utils.doPOST(httpClient, options);
         response += ("Success creating issue types" + result.statusCode);
@@ -21,7 +22,7 @@ exports.addIssueType = async function(httpClient) {
     // NOTE: At this point `options` has been modified by httpClient
 
     try {
-        const result= await utils.doGET(httpClient, issueTypeUrl);
+        const result = await utils.doGET(httpClient, issueTypeUrl);
         response += ("Issue types:" + result.message);
     }
     catch (error) {

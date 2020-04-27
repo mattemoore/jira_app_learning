@@ -21,7 +21,7 @@ export default function routes(app, addon) {
     }
 
     async function initHandler(req, res) {
-        const response = await init.addIssueType(addon.httpClient(req))
+        const response = await init.addIssueType(addon.httpClient(req));
         res.send(response);
     }
 }
